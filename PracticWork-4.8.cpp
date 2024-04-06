@@ -50,7 +50,68 @@ int main()
     cout << "Разница между самой высокой и низкой зарплатой: " << salaryHigh - salaryLow << endl;
 
 
-    cout << endl << "Попытка номер 2"; //Попытка номер 2
+    cout << endl << "Попытка номер 2\n"; //Попытка номер 2
 
+    //стираем данные
+    salaryHigh = 0;
+    salaryMiddle = 0;
+    salaryLow = 0;
+
+    int works;
+    cout << "Введите количество сотрудников: ";
+    cin >> works;
+    int* salary = new int[works]; // в массиве можно использовать только константу, по этому цикл нужен для того, что бы размер массива был равен количеству сотрудников.
+    for (int i = 0; i < works; i++) {
+        cout << "Введите зарплату " << i + 1 << "-го сотрудника: ";
+        cin >> salary[i];
+    }
+    
+    cout << "--------идёт подсчёт--------\n";
+
+    int i = 0;
+    int k = 0;
+    //проверка на наименьшее. первый элемент сравнивается со всеми остальными, 
+    //если нахожится элемент меньше, то дальше он сравнивается со всеми. 
+    while ( i < works && k < works) {    
+        if (salary[i] <= salary[k]) {
+            k++;
+        }
+        else {
+            i = k;
+        }
+    }
+    salaryLow = salary[i];
+
+    //обновляем коэффициенты
+    i = 0;
+    k = 0;
+    
+    //такая же проверка на самое большое число
+    while (i < works && k < works) {
+        if (salary[i] >= salary[k]) {
+            k++;
+        }
+        else {
+            i = k;
+        }
+    }
+    salaryHigh = salary[i];
+
+
+    //складываю все элементы для вычисления среднего
+    for (int i = 0; i < works; i++) {
+        salaryMiddle += salary[i];
+    }
+
+    //cout << salaryMiddle << endl;
+
+    salaryMiddle /= works;
+
+    cout << "Самая высокая зарплата: " << salaryHigh << endl;
+    cout << "Срендяя зарплата: " << salaryMiddle << endl;
+    cout << "Разница между самой высокой и низкой зарплатой: " << salaryHigh - salaryLow << endl;
+
+
+    delete[] salary;
     return 0;
 }
